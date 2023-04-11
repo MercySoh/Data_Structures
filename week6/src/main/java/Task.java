@@ -18,14 +18,23 @@ public class Task {
     private String description;
     private LocalDate deadline;
 
-    public Task(String owner, String description, LocalDate deadline) {
+    
+    
+    public Task(String owner, String description, String deadline) {
         this.owner = owner;
         this.description = description;
-        if(deadline.equals(LocalDate.now()) || deadline.isBefore(LocalDate.now())){
+        LocalDate d = LocalDate.parse(deadline);
+        if(d.equals(LocalDate.now()) || d.isBefore(LocalDate.now())){
             throw new DateTimeException("Invalid date time error.");
         }else{
-            this.deadline = deadline;
+            this.deadline = d;
         }
+    }
+
+    public Task() {
+        this.owner = "Owner";
+        this.description = "Description";
+        this.deadline = LocalDate.now();
     }
 
     public String getOwner() {
