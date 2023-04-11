@@ -128,7 +128,7 @@ public class BoundedPriorityQueueSetTest {
      * que.
      */
     @Test
-    public void testIsFull_maxSizeQue() {
+    public void testIsFull_MaxSizeQue() {
         BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
         instance.add(new Task("Ason", "clean house", "2023-05-11"));
         instance.add(new Task("Breana", "dance class", "2023-05-11"));
@@ -150,7 +150,7 @@ public class BoundedPriorityQueueSetTest {
      * que.
      */
     @Test
-    public void testIsFull_overSizeQue() {
+    public void testIsFull_OversizeQue() {
         BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
         instance.add(new Task("Ason", "clean house", "2023-05-11"));
         instance.add(new Task("Breana", "dance class", "2023-05-11"));
@@ -215,7 +215,7 @@ public class BoundedPriorityQueueSetTest {
      * Test of add method, of class BoundedPriorityQueueSet with duplicate task.
      */
     @Test
-    public void testAdd_duplicateTask() {
+    public void testAdd_DuplicateTask() {
 
         Task value = new Task("Luca", "basketball", "2023-06-17");
 
@@ -254,7 +254,7 @@ public class BoundedPriorityQueueSetTest {
      * Test of peek method, of class BoundedPriorityQueueSet with empty que.
      */
     @Test
-    public void testPeek_emptyQue() {
+    public void testPeek_EmptyQue() {
         BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
         assertThrows(NoSuchElementException.class, () -> {
             instance.peek();
@@ -263,7 +263,7 @@ public class BoundedPriorityQueueSetTest {
     }
 
     /**
-     * Test of peek method, of class BoundedPriorityQueueSet with empty que.
+     * Test of peek method, of class BoundedPriorityQueueSet with populated que.
      */
     @Test
     public void testPeek_PopulatedQue() {
@@ -278,17 +278,35 @@ public class BoundedPriorityQueueSetTest {
     }
 
     /**
-     * Test of remove method, of class BoundedPriorityQueueSet.
+     * Test of remove method, of class BoundedPriorityQueueSet with empty que.
      */
     @Test
-    public void testRemove() {
-        System.out.println("remove");
-        BoundedPriorityQueueSet instance = null;
-        Task expResult = null;
+    public void testRemove_EmptyQue() {
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+        assertThrows(NoSuchElementException.class, () -> {
+            instance.remove();
+        });
+
+    }
+
+    /**
+     * Test of remove method, of class BoundedPriorityQueueSet with populated
+     * que.
+     */
+    @Test
+    public void testRemove_PopulatedQue() {
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+        instance.add(new Task("Ason", "clean house", "2023-05-11"));
+        instance.add(new Task("Caly", "dinner with family", "2023-05-30"));
+
+        Task expResult = new Task("Ason", "clean house", "2023-05-11");
         Task result = instance.remove();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        int expSize = 1;
+        int resultSize = instance.size();
+        assertEquals(expSize, resultSize);
+
     }
 
 }
