@@ -78,6 +78,12 @@ public class BoundedPriorityQueueSet extends LinkedList{
         return super.add(value); 
     }
 
+    /**
+     *Peeks first task from the Queue.
+     *
+     * @return first task when the Queue not empty
+     * @throws NoSuchElementException when queue is empty
+     */
     public Task peek() {
         if (isEmpty() == true) {
             throw new NoSuchElementException();
@@ -85,6 +91,12 @@ public class BoundedPriorityQueueSet extends LinkedList{
         return first.data;
     }
     
+     /**
+     *Remove first task from the Queue.
+     *
+     * @return first task when removed
+     * @throws NoSuchElementException when queue is empty
+     */
     public Task remove() {
         if (isEmpty() == true) {
             throw new NoSuchElementException();
