@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
 
+import java.time.LocalDate;
+import java.time.Month;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author asus
  */
 public class BoundedPriorityQueueSetTest {
-    
+
     public BoundedPriorityQueueSetTest() {
     }
 
     /**
-     * Test of size method, of class BoundedPriorityQueueSet.
+     * Test of size method, of class BoundedPriorityQueueSet with empty queue.
      */
     @Test
     public void testSize_EmptyQue() {
@@ -25,7 +27,23 @@ public class BoundedPriorityQueueSetTest {
         int result = instance.size();
         assertEquals(expResult, result);
     }
-    
+
+    /**
+     * Test of size method, of class BoundedPriorityQueueSet with populate queue.
+     */
+    @Test
+    public void testSize_PopulatedQue() {
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+        instance.add(new Task("Ason","clean house", "2023-05-11"));
+        instance.add(new Task("Breana","dance class", "2023-05-11"));
+        instance.add(new Task("Caly","dinner with family", "2023-05-11"));
+        instance.add(new Task("Derek","grocery shopping", "2023-05-11"));
+        instance.add(new Task("Elton","dish wash", "2023-05-11"));
+        int expResult = 5;
+        int result = instance.size();
+        assertEquals(expResult, result);
+    }
+
     /**
      * Test of isEmpty method, of class BoundedPriorityQueueSet.
      */
@@ -96,5 +114,5 @@ public class BoundedPriorityQueueSetTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }
