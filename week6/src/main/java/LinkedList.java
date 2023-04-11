@@ -50,7 +50,7 @@ public class LinkedList {
      * @param value is use for the specified value(Task)
      * @return true when added else return false
      */
-    public boolean add(Task value) {
+    public boolean add(int value) {
         Node newNode = new Node(value);
 
         if (first == null) {
