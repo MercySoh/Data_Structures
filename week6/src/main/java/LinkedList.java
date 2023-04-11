@@ -7,9 +7,9 @@ import java.lang.reflect.Array;
  */
 public class LinkedList {
 
-    private Node first;
-    private Node last;
-    private int size;
+    protected Node first;
+    protected Node last;
+    protected int size;
 
     public LinkedList() {
         first = null;
@@ -192,10 +192,10 @@ public class LinkedList {
 
     }
 
-    private static class Node {
+    protected static class Node {
 
-        private Task data;
-        private Node next;
+        protected Task data;
+        protected Node next;
 
         public Node(Task value) {
             this.data = value;
