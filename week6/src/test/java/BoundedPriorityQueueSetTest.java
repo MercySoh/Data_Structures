@@ -82,7 +82,8 @@ public class BoundedPriorityQueueSetTest {
     }
 
     /**
-     * Test of isEmpty method, of class BoundedPriorityQueueSet with populated que.
+     * Test of isEmpty method, of class BoundedPriorityQueueSet with populated
+     * que.
      */
     @Test
     public void testIsEmpty__PopulatedQue() {
@@ -101,19 +102,20 @@ public class BoundedPriorityQueueSetTest {
      */
     @Test
     public void testIsFull_EmptyQue() {
-         BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
         boolean expResult = false;
         boolean result = instance.isFull();
         assertEquals(expResult, result);
     }
-    
+
     /**
-     * Test of isFull method, of class BoundedPriorityQueueSet with populated que.
+     * Test of isFull method, of class BoundedPriorityQueueSet with populated
+     * que.
      */
     @Test
     public void testIsFull_PopulatedQue() {
         BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
-         instance.add(new Task("Ason", "clean house", "2023-05-11"));
+        instance.add(new Task("Ason", "clean house", "2023-05-11"));
         instance.add(new Task("Breana", "dance class", "2023-05-11"));
         boolean expResult = false;
         boolean result = instance.isFull();
@@ -121,12 +123,13 @@ public class BoundedPriorityQueueSetTest {
     }
 
     /**
-     * Test of isFull method, of class BoundedPriorityQueueSet with max size que.
+     * Test of isFull method, of class BoundedPriorityQueueSet with max size
+     * que.
      */
     @Test
     public void testIsFull_maxSizeQue() {
         BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
-       instance.add(new Task("Ason", "clean house", "2023-05-11"));
+        instance.add(new Task("Ason", "clean house", "2023-05-11"));
         instance.add(new Task("Breana", "dance class", "2023-05-11"));
         instance.add(new Task("Caly", "dinner with family", "2023-05-11"));
         instance.add(new Task("Derek", "grocery shopping", "2023-05-11"));
@@ -140,14 +143,15 @@ public class BoundedPriorityQueueSetTest {
         boolean result = instance.isFull();
         assertEquals(expResult, result);
     }
-    
-     /**
-     * Test of isFull method, of class BoundedPriorityQueueSet with over size que.
+
+    /**
+     * Test of isFull method, of class BoundedPriorityQueueSet with over size
+     * que.
      */
     @Test
     public void testIsFull_overSizeQue() {
         BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
-       instance.add(new Task("Ason", "clean house", "2023-05-11"));
+        instance.add(new Task("Ason", "clean house", "2023-05-11"));
         instance.add(new Task("Breana", "dance class", "2023-05-11"));
         instance.add(new Task("Caly", "dinner with family", "2023-05-11"));
         instance.add(new Task("Derek", "grocery shopping", "2023-05-11"));
@@ -157,24 +161,90 @@ public class BoundedPriorityQueueSetTest {
         instance.add(new Task("Hanah", "work day", "2023-05-11"));
         instance.add(new Task("Luna", "cooking class", "2023-05-11"));
         instance.add(new Task("Melisa", "clinic check", "2023-05-11"));
-       assertThrows(IllegalStateException.class, () -> {
+        assertThrows(IllegalStateException.class, () -> {
             instance.add(new Task("Nathen", "football", "2023-05-11"));
+        });
+    }
+
+    /**
+     * Test of add method, of class BoundedPriorityQueueSet with one task.
+     */
+    @Test
+    public void testAdd_TaskInEmptyQue() {
+        Task value = new Task("Luca", "basketball", "2023-06-17");
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+
+        int expResult = 0;
+        int result = instance.add(value);
+        assertEquals(expResult, result);
+
+        int expSize = 1;
+        int resultSize = instance.size();
+        assertEquals(expSize, resultSize);
+    }
+
+    /**
+     * Test of add method, of class BoundedPriorityQueueSet with one task in full que.
+     */
+    @Test
+    public void testAdd_TaskInFullQue() {
+        
+       Task value = new Task("Luca", "basketball", "2023-06-17");
+        
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+        instance.add(new Task("Ason", "clean house", "2023-05-11"));
+        instance.add(new Task("Breana", "dance class", "2023-05-11"));
+        instance.add(new Task("Caly", "dinner with family", "2023-05-11"));
+        instance.add(new Task("Derek", "grocery shopping", "2023-05-11"));
+        instance.add(new Task("Elton", "dish wash", "2023-05-11"));
+        instance.add(new Task("Felix", "dating", "2023-05-11"));
+        instance.add(new Task("Gloria", "sing lesson", "2023-05-11"));
+        instance.add(new Task("Hanah", "work day", "2023-05-11"));
+        instance.add(new Task("Luna", "cooking class", "2023-05-11"));
+        instance.add(new Task("Melisa", "clinic check", "2023-05-11"));
+        
+        assertThrows(IllegalStateException.class, () -> {
+            instance.add(value);
+        });
+    
+    }
+    
+    /**
+     * Test of add method, of class BoundedPriorityQueueSet with duplicate task.
+     */
+    @Test
+    public void testAdd_duplicateTask() {
+        
+       Task value = new Task("Luca", "basketball", "2023-06-17");
+        
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+        instance.add(new Task("Ason", "clean house", "2023-05-11"));
+        instance.add(new Task("Caly", "dinner with family", "2023-05-11"));
+        instance.add(new Task("Luca", "basketball", "2023-06-17"));
+        assertThrows(DuplicateElementException.class, () -> {
+            instance.add(value);
         });
     }
     
     /**
-     * Test of add method, of class BoundedPriorityQueueSet.
+     * Test of add method, of class BoundedPriorityQueueSet with one task add in last que.
      */
     @Test
-    public void testAdd() {
-        System.out.println("add");
-        Task value = null;
-        BoundedPriorityQueueSet instance = null;
-        boolean expResult = false;
-        boolean result = instance.add(value);
+    public void testAdd_TaskInLast() {
+        
+       Task value = new Task("Luca", "basketball", "2023-06-17");
+        
+        BoundedPriorityQueueSet instance = new BoundedPriorityQueueSet();
+        instance.add(new Task("Ason", "clean house", "2023-05-11"));
+        instance.add(new Task("Caly", "dinner with family", "2023-05-30"));
+       
+        int expResult = 2;
+        int result = instance.add(value);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        int expSize = 3;
+        int resultSize = instance.size();
+        assertEquals(expSize, resultSize);
     }
 
     /**
