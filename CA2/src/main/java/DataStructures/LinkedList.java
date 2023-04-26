@@ -46,7 +46,48 @@ public class LinkedList {
         return current.data;
     }
 
-  
+  /**
+     * Returns specified value's position when it founded in appointments list.
+     *
+     * @param value is use for the specified value
+     * @return position of specified value in appointments list when founded else return -1 when it not be founded
+     */
+    public int indexOf(Appointments value) {
+
+        if (first == null) {
+            return -1;
+        }
+
+        Node current = first;
+
+        for (int i = 0; i < size; i++) {
+            if (current.data.equals(value)) {
+                return i;
+            }
+            current = current.next;
+        }
+        return -1;
+    }
+    
+     /**
+     *Adds an appointments to the end of the appointments list.
+     *
+     * @param value is use for the specified value
+     * @return true when added else return false
+     */
+    public boolean add(Appointments value) {
+        Node newNode = new Node(value);
+
+        if (first == null) {
+            first = newNode;
+            last = newNode;
+        } else {
+            last.next = newNode;
+            last = newNode;
+        }
+        size++;
+        return true;
+    }
 
     protected static class Node {
 
