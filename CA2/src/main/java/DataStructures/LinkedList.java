@@ -20,7 +20,7 @@ public class LinkedList {
     }
 
     /**
-     *Get the size of appointments list.
+     * Get the size of appointments list.
      *
      * @return size in appointments list
      */
@@ -33,7 +33,8 @@ public class LinkedList {
      *
      * @param pos is use for the specified position
      * @return value of the specified position from appointments list
-     * @throws IndexOutOfBoundsException when the position is less than 0 or greater than size 
+     * @throws IndexOutOfBoundsException when the position is less than 0 or
+     * greater than size
      */
     public Appointments get(int pos) {
         if (pos < 0 || pos >= size) {
@@ -46,11 +47,12 @@ public class LinkedList {
         return current.data;
     }
 
-  /**
+    /**
      * Returns specified value's position when it founded in appointments list.
      *
      * @param value is use for the specified value
-     * @return position of specified value in appointments list when founded else return -1 when it not be founded
+     * @return position of specified value in appointments list when founded
+     * else return -1 when it not be founded
      */
     public int indexOf(Appointments value) {
 
@@ -68,9 +70,9 @@ public class LinkedList {
         }
         return -1;
     }
-    
-     /**
-     *Adds an appointments to the end of the appointments list.
+
+    /**
+     * Adds an appointments to the end of the appointments list.
      *
      * @param value is use for the specified value
      * @return true when added else return false
@@ -87,6 +89,86 @@ public class LinkedList {
         }
         size++;
         return true;
+    }
+
+    /**
+     * Set an appointments to a specified position in the appointments list.
+     *
+     * @param value is use for the specified value
+     * @param pos is use for the specified position
+     * @return original value when new value added
+     * @throws IndexOutOfBoundsException when position is less than 0 or greater
+     * than size
+     */
+    public Appointments set(Appointments value, int pos) {
+
+        if (pos < 0 || pos >= size) {
+            throw new IndexOutOfBoundsException("Invalid position provided.");
+        }
+
+        if (pos == 0) {
+            Node newNode = new Node(value);
+            newNode.next = first;
+            first = newNode;
+
+            size++;
+            return newNode.next.data;
+        } else {
+            Node current = first;
+
+            for (int i = 0; i < pos - 1; i++) {
+                current = current.next;
+            }
+
+            Node newNode = new Node(value);
+            newNode.next = current.next;
+            current.next = newNode;
+            size++;
+            return newNode.next.data;
+        }
+    }
+
+    /**
+     * Removed specified appointments from appointments list.
+     *
+     * @param value is use for the specified value
+     * @return true when specified value removed else return false
+     */
+    public boolean remove(Appointments value) {
+
+        Node original = first;
+        Node prev = null;
+
+        if (value.equals(original.data)) {
+            original.data = first.data;
+            first = first.next;
+
+            size--;
+            return true;
+        }
+
+        while (original != null) {
+            if (original.data.equals(value)) {
+                prev.next = original.next;
+                if (prev.next == null) {
+                    last = prev;
+                }
+                size--;
+                return true;
+            }
+            prev.data = original.data;
+            original.data = original.next.data;
+        }
+        return false;
+    }
+    
+     /**
+     * Check appointments list is empty or not.
+     *
+     * @return true when appointments list is empty else return false
+     */
+    public boolean isEmpty() {
+        return first == null;
     }
 
     protected static class Node {
