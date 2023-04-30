@@ -5,6 +5,7 @@
 package DataStructures;
 
 import ApplicationData.Appointments;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -49,5 +50,67 @@ public class PriorityQueue extends LinkedList {
      */
     public boolean isFull() {
         return size >= capacity;
+    }
+
+    /**
+     * Adds a task to the Queue.
+     *
+     * @param value is use for the specified value
+     * @return true when value added else return false when value not added
+     * @throws IllegalStateException when queue is full
+     * @throws DuplicateElementException when task is duplicate
+     */
+    @Override
+    public boolean add(Appointments value) {
+        Node newNode = new Node(value);
+
+        if (isEmpty()) {
+            first = newNode;
+            last = newNode;
+            size++;
+            return true;
+        } else if (isFull()) {
+            throw new IllegalStateException("Task is full.");
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (this.get(i).equals(value)) {
+                    throw new DuplicateElementException("Task already exists.");
+                }
+            }
+            last.next = newNode;
+            last = newNode;
+            size++;
+
+            return true;
+        }
+    }
+    
+      /**
+     * Peeks first task from the Queue.
+     *
+     * @return first task when the Queue not empty
+     * @throws NoSuchElementException when queue is empty
+     */
+    public Appointments peek() {
+        if (isEmpty() == true) {
+            throw new NoSuchElementException();
+        }
+        return first.data;
+    }
+
+    /**
+     * Remove first task from the Queue.
+     *
+     * @return first task when removed
+     * @throws NoSuchElementException when queue is empty
+     */
+    public Appointments remove() {
+        if (isEmpty() == true) {
+            throw new NoSuchElementException();
+        }
+        Appointments original = first.data;
+
+        size--;
+        return original;
     }
 }
